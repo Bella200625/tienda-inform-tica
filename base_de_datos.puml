@@ -1,1 +1,106 @@
-class 
+@startuml
+
+class Producto {
+    + id: String;
+    + codigo: String;
+    + modelo: String;
+    + tipo: String;
+    + memoria: String;
+    + velocidadImpresion: String;
+    + resolucion: String;
+    + paisOrigen: String;
+    + fechaFabricacion: Date;
+}
+
+class Proveedor {
+    + id: String;
+    + NIF: String;
+    + direccion: String;
+    + fechaAdquisicion: Date;
+}
+
+class Cliente {
+    + id: String;
+    + DNI: String;
+    + telefono: String;
+    + direccion: String;
+}
+
+class Pago {
+    + id: String;
+    + fecha: Date;
+    + monto: Double;
+    + metodoPago: String;
+}
+
+class Contrato {
+    + id: String;
+    + modalidad: String;
+    + fechaInicio: Date;
+    + fechaFin: Date;
+    + detalle: String;
+}
+
+class ServicioTecnico {
+    + id: String;
+    + detalleServicio: String;
+    + totalFacturado: Double;
+}
+
+class HistorialPrecios {
+    + id: String;
+    + fecha: Date;
+    + precio: Double;
+}
+
+class Alquiler {
+    + id: String;
+    + precioHora: Double;
+}
+
+class RegistroAdquisiciones {
+    + id: String;
+    + fecha: Date;
+    + cantidad: Integer;
+}
+
+class EmpresaFabricante {
+    + id: String;
+    + nombre: String;
+    + direccion: String;
+    + numeroEmpleados: Integer;
+}
+
+class SoporteTecnico {
+    + id: String;
+    + precio: Double;
+}
+
+class TerminosPago {
+    + id: String;
+    + condiciones: String;
+    + plazo: String;
+}
+
+'relaciones 
+Cliente "1" --> "*" Producto : desea 
+Cliente "1" --> "*" Alquiler : alquila
+Cliente "1" --> "*" Pago : realiza
+Cliente "1" --> "1" TerminosPago : acuerda
+Pago "1" --> "1" Producto : relacionado con
+Pago "1" --> "1" Alquiler : relacionado con
+Pago "1" --> "1" ServicioTecnico : relacionado con
+Pago "1" --> "1" TerminosPago : establecido por
+Proveedor "1" --> "*" Producto : suministra
+Proveedor "1" --> "*" RegistroAdquisiciones : documenta
+Producto "1" --> "1" EmpresaFabricante : producido por
+EmpresaFabricante "1" --> "*" SoporteTecnico : ofrece
+Producto "1" --> "*" SoporteTecnico : requiere
+Cliente "1" --> "*" ServicioTecnico : solicita
+ServicioTecnico "1" --> "*" HistorialPrecios : registra
+Producto "1" --> "*" Alquiler : disponible para
+Contrato "1" --> "1" Cliente : firmado por
+Contrato "1" --> "1" Proveedor : firmado con
+Contrato "1" --> "1" ServicioTecnico : regula
+
+
