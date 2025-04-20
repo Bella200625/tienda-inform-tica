@@ -1,106 +1,108 @@
 @startuml
 
-class Producto {
-    + id: String;
-    + codigo: String;
-    + modelo: String;
-    + tipo: String;
-    + memoria: String;
-    + velocidadImpresion: String;
-    + resolucion: String;
-    + paisOrigen: String;
-    + fechaFabricacion: Date;
+abstract class Producto {
+    + IdProducto: String;
+    + Modelo: String;
 }
 
-class Proveedor {
-    + id: String;
-    + NIF: String;
-    + direccion: String;
-    + fechaAdquisicion: Date;
+class CPU {
+    + MemoriaPrincipal: String;
 }
 
-class Cliente {
-    + id: String;
-    + DNI: String;
-    + telefono: String;
-    + direccion: String;
+class Impresora {
+    + VelocidadImpresion: String;
 }
 
-class Pago {
-    + id: String;
-    + fecha: Date;
-    + monto: Double;
-    + metodoPago: String;
+class Monitor {
+    + ResolucionMaxima: String;
 }
 
-class Contrato {
-    + id: String;
-    + modalidad: String;
-    + fechaInicio: Date;
-    + fechaFin: Date;
-    + detalle: String;
+class DiscoDuro {
+    + CapacidadAlmacenamiento: int;
 }
 
-class ServicioTecnico {
-    + id: String;
-    + detalleServicio: String;
-    + totalFacturado: Double;
+abstract class AltaTecnologia {
+    + EmpresaFabricante: EmpresaFabricante;
+    + IdAltaTecno: String;
+    + PaisOrigen: String;
+    + FechaFabricacion: Date;
+    + Precio: Double; 
 }
 
-class HistorialPrecios {
-    + id: String;
-    + fecha: Date;
-    + precio: Double;
+abstract class SoporteTecnico {
+    + IdSoporte: String;
+    + DetalleServicio: String;
+    + Precio: double;
+    + Totalfactura: double;
 }
 
-class Alquiler {
-    + id: String;
-    + precioHora: Double;
-}
-
-class RegistroAdquisiciones {
-    + id: String;
-    + fecha: Date;
-    + cantidad: Integer;
+class ServicioTecnicoImpresora {
+    + ServicioEsclusivo: String;
 }
 
 class EmpresaFabricante {
-    + id: String;
-    + nombre: String;
-    + direccion: String;
-    + numeroEmpleados: Integer;
+    + IdEmpresa: String;
+    + Nombre: String;
+    + Direccion: String;
+    + NumeroEmpleados: int;
 }
 
-class SoporteTecnico {
-    + id: String;
-    + precio: Double;
+class Proveedor {
+    + NIF: String;
+    + Direccion: String;
+    + IdProveedor: String;
 }
 
-class TerminosPago {
-    + id: String;
-    + condiciones: String;
-    + plazo: String;
+class ProductoProveedor {
+    + IdProducto: Producto;
+    + IdProveedor: Proveedor;
+    + FechaAdquisicion: Date;
 }
 
-'relaciones 
-Cliente "1" --> "*" Producto : desea 
-Cliente "1" --> "*" Alquiler : alquila
-Cliente "1" --> "*" Pago : realiza
-Cliente "1" --> "1" TerminosPago : acuerda
-Pago "1" --> "1" Producto : relacionado con
-Pago "1" --> "1" Alquiler : relacionado con
-Pago "1" --> "1" ServicioTecnico : relacionado con
-Pago "1" --> "1" TerminosPago : establecido por
-Proveedor "1" --> "*" Producto : suministra
-Proveedor "1" --> "*" RegistroAdquisiciones : documenta
-Producto "1" --> "1" EmpresaFabricante : producido por
-EmpresaFabricante "1" --> "*" SoporteTecnico : ofrece
-Producto "1" --> "*" SoporteTecnico : requiere
-Cliente "1" --> "*" ServicioTecnico : solicita
-ServicioTecnico "1" --> "*" HistorialPrecios : registra
-Producto "1" --> "*" Alquiler : disponible para
-Contrato "1" --> "1" Cliente : firmado por
-Contrato "1" --> "1" Proveedor : firmado con
-Contrato "1" --> "1" ServicioTecnico : regula
+abstract class Alquiler {
+    + Codigo: String;
+    + PrecioPorHora: double;
+    + IdAlquiler: String;
+}
+
+abstract class Cliente {
+    + Nombre: String;
+    + IdCliente: String;
+}
+
+class ClienteImpresora {
+    + DNI: String;
+    + Telefono: String;
+    + Direccion: String;
+}
+
+class Contrato {
+    + IdContrato: String;
+    + Modalidad: String;
+    + FechaInicio: Date;
+    + FechaFin: Date;
+    + Detalle: String;
+}
+
+class Factura {
+    + IdFactura: String;
+    + NombreProducto: String;
+    + fechaCompra: Date;
+    + NombreEmpresa: String;
+    + Precio: Double; 
+    + MetodoPago: String;
+}
+
+//corregido? 
+class Factura {
+    + IdFactura: String;
+    + Producto: Producto;
+    + Empresa: EmpresaFabricante;
+    + FechaCompra: Date;
+    + Precio: double;
+    + MetodoPago: String;
+}
+
+relaciones 
 
 
